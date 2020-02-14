@@ -10,9 +10,15 @@ main = defaultMain hosts
 hosts :: [Host]
 hosts =
 	[ buster
+	, focal
 	]
 
--- An example host.
+-- Debian 10 ("buster")
 buster :: Host
 buster = host "buster.localnet" $ props
 	& osDebian (Stable "buster") X86_64
+
+-- Ubuntu 20.04 ("focal")
+focal :: Host
+focal = host "focal.localnet" $ props
+	& osBuntish "focal" X86_64
