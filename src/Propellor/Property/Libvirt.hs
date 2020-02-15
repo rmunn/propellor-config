@@ -171,6 +171,7 @@ osVariant :: Host -> Maybe String
 osVariant h = hostSystem h >>= \s -> case s of
 	System (Debian _ (Stable "jessie")) _ -> Just "debian8"
 	System (Debian _ (Stable "stretch")) _ -> Just "debian9"
+	System (Debian _ (Stable "buster")) _ -> Just "debian10"
 	System (Debian _ Testing) _ -> Just "debiantesting"
 	System (Debian _ Unstable) _ -> Just "debiantesting"
 
@@ -183,6 +184,10 @@ osVariant h = hostSystem h >>= \s -> case s of
 	System (Buntish "zesty") _ -> Just "ubuntu17.04"
 	System (Buntish "artful") _ -> Just "ubuntu17.10"
 	System (Buntish "bionic") _ -> Just "ubuntu18.04"
+	System (Buntish "cosmic") _ -> Just "ubuntu18.10"
+	System (Buntish "disco") _ -> Just "ubuntu19.04"
+	System (Buntish "eoan") _ -> Just "ubuntu19.10"
+	System (Buntish "focal") _ -> Just "ubuntu20.04"
 
 	System (FreeBSD (FBSDProduction FBSD101)) _ -> Just "freebsd10.1"
 	System (FreeBSD (FBSDProduction FBSD102)) _ -> Just "freebsd10.2"
