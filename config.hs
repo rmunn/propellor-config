@@ -11,6 +11,7 @@ hosts :: [Host]
 hosts =
 	[ buster
 	, focal
+	, arch
 	]
 
 -- Debian 10 ("buster")
@@ -22,3 +23,8 @@ buster = host "buster.localnet" $ props
 focal :: Host
 focal = host "focal.localnet" $ props
 	& osBuntish "focal" X86_64
+
+-- Archlinux
+arch :: Host
+arch = host "arch.localnet" $ props
+	& osArchLinux X86_64
