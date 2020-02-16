@@ -3,6 +3,11 @@
 
 import Propellor
 import Propellor.Property.Bootstrap
+import Propellor.Property.Scheduled
+import qualified Propellor.Property.Apt as Apt
+import qualified Propellor.Property.Chroot as Chroot
+import qualified Propellor.Property.Sbuild as Sbuild
+import qualified Propellor.Property.Schroot as Schroot
 
 main :: IO ()
 main = defaultMain hosts
@@ -19,6 +24,16 @@ hosts =
 buster :: Host
 buster = host "buster.localnet" $ props
 	& osDebian (Stable "buster") X86_64
+	& Apt.useLocalCacher
+	& sidSchrootBuilt
+	& Sbuild.usableBy (User "vagrant")
+	& Schroot.overlaysInTmpfs
+  where
+	sidSchrootBuilt = Sbuild.built Sbuild.UseCcache $ props
+		& osDebian Unstable X86_32
+		& Sbuild.osDebianStandard
+		& Sbuild.update `period` Weekly (Just 1)
+		& Chroot.useHostProxy buster
 
 -- Ubuntu 20.04 ("focal")
 focal :: Host
