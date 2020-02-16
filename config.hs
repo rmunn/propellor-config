@@ -2,6 +2,7 @@
 -- the propellor program.
 
 import Propellor
+import Propellor.Property.Bootstrap
 
 main :: IO ()
 main = defaultMain hosts
@@ -28,3 +29,4 @@ focal = host "focal.localnet" $ props
 arch :: Host
 arch = host "arch.localnet" $ props
 	& osArchLinux X86_64
+	& bootstrapWith (Robustly Stack)
